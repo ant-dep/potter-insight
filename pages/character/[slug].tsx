@@ -130,8 +130,8 @@ const Character = ({ character }: Props) => {
 
 export default Character
 
-// fetch data with current slugghy
-export const getStaticPaths = async () => {
+// get props for post from params
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const getCharacters = async () => {
     const res = await fetch('https://hp-api.herokuapp.com/api/characters', {
       method: 'GET',
@@ -139,41 +139,10 @@ export const getStaticPaths = async () => {
         'Content-Type': 'application/json',
       },
     })
-    return res.json()
+    let list = await res.json()
+    list.filter()
   }
-
-  const characters = await getCharacters()
-
-  const paths = characters.map((character: Characters) => ({
-    params: {
-      slug: character.name,
-    },
-  }))
-
-  return {
-    paths,
-    fallback: 'blocking',
-  }
-}
-
-// get props for post from params
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const character = await fetch(
-    `https://hp-api.herokuapp.com/api/characters/${params}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  )
-
-  if (!character) {
-    return {
-      notFound: true,
-    }
-  }
-
+  const character = await getCharacters()
   return {
     props: {
       character,

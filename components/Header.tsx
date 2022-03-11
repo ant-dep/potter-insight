@@ -70,7 +70,7 @@ const Header = ({ minScroll }: Scroll) => {
           <h3 className="transition duration-100 active:scale-90">Sign In</h3>
           <h3
             className={`rounded-full px-5 py-2 text-sm text-white transition duration-300 active:scale-90 ${
-              show ? 'bg-green-600' : 'bg-black'
+              show ? 'bg-yellow-500' : 'bg-black'
             } ${minScroll == 0 && !show && 'border-white border'}`}
           >
             Get Started

@@ -21,7 +21,7 @@ export default function Home({ characters }: Props) {
     <div className={`${theme === 'dark' && 'bg-black'}`}>
       <Head>
         <title>Potter Insight</title>
-        <link rel="icon" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <Header minScroll={100} />
       <Banner />

@@ -17,8 +17,8 @@ const Character = ({ characters }: Props) => {
   return (
     <div className="grid grid-cols-1 gap-3 py-2 sm:grid-cols-2 md:gap-6 md:py-6 lg:grid-cols-3">
       {characters &&
-        characters.map((character) => (
-          <Link key={character.name} href={`/character/${character.name}`}>
+        characters.map((character, index) => (
+          <Link key={character.name} href={`/character/${index}`}>
             <div
               className={`group cursor-pointer overflow-hidden rounded-lg border ${
                 theme === 'light' ? 'bg-white' : 'bg-black text-white'
