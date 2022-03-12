@@ -7,12 +7,14 @@ import storage from 'redux-persist/lib/storage'
 let store
 
 const InitialState = {
-  theme: 'light',
+  theme: 'dark',
+  characters: [],
   error: null,
 }
 
 export const actionTypes = {
   toggleTheme: 'toggleTheme',
+  loadCharacters: 'loadCharacters',
 }
 
 // REDUCERS
@@ -21,6 +23,10 @@ export const reducer = (state = InitialState, action) => {
     case actionTypes.toggleTheme:
       return {
         theme: action.data,
+      }
+    case actionTypes.loadCharacters:
+      return {
+        characters: action.data,
       }
     default:
       return state
@@ -32,11 +38,16 @@ export const loadTheme = (data) => {
   return { type: actionTypes.toggleTheme, data }
 }
 
+export const loadCharacters = (data) => {
+  console.log('loadCharacters')
+  return { type: actionTypes.loadCharacters, data }
+}
+
 const persistConfig = {
   timeout: 100, // override the default 5sec timeout hit
   key: 'root',
   storage,
-  whitelist: ['theme'], // place to select which state you want to persist
+  whitelist: ['theme', 'characters'], // place to select which state you want to persist
 }
 
 const persistedReducer = persistReducer(persistConfig, reducer)

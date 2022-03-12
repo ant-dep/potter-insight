@@ -4,7 +4,10 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Character from '../components/Character'
 import { Characters } from '../typings'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { loadCharacters } from '../store'
+import { useEffect } from 'react'
+
 interface Props {
   characters: [Characters]
 }
@@ -16,6 +19,12 @@ interface State {
 
 export default function Home({ characters }: Props) {
   const theme = useSelector((state: State) => state.theme)
+  const dispatch = useDispatch()
+
+  // push characters directly to redux for futher use
+  useEffect(() => {
+    dispatch(loadCharacters(characters))
+  }, [characters])
 
   return (
     <div className={`${theme === 'dark' && 'bg-black'}`}>
@@ -26,7 +35,7 @@ export default function Home({ characters }: Props) {
       <Header minScroll={100} />
       <Banner />
       <div className={`mx-auto max-w-7xl ${theme === 'dark' && 'bg-black'}`}>
-        <Character characters={characters} />
+        <Character characters={characters} selected={0} />
         <hr className="mx-auto mt-12 h-[0.5px] w-[95%] bg-[#757575]" />
         <Footer />
       </div>

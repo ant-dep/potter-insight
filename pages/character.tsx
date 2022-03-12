@@ -1,21 +1,28 @@
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
-import Header from '../../components/Header'
-import { Characters } from '../../typings'
+import Header from '../components/Header'
+import { Characters } from '../typings'
 import { Toaster } from 'react-hot-toast'
-import Footer from '../../components/Footer'
+import Footer from '../components/Footer'
 import { useSelector } from 'react-redux'
 
 interface Props {
-  character: Characters
+  character: [Characters]
 }
 
 interface State {
   theme: string
+  characters: Array<Characters>
 }
 
-const Character = ({ character }: Props) => {
+const Character = () => {
   const theme = useSelector((state: State) => state.theme)
+  const characters = useSelector((state: State) => state.characters)
+  const params = new URLSearchParams(window.location.search)
+  const id = parseInt(params.get('id') || '0')
+  const character = characters[id]
+
+  console.log(character, id)
 
   return (
     <>
@@ -23,8 +30,8 @@ const Character = ({ character }: Props) => {
         <Toaster />
       </div>
       <Head>
-        <title>{character.name}</title>
-        <link rel="icon" href="/favicon.svg" />
+        <title>Potter Insight - {character.name}</title>
+        <link rel="icon" href="/favicon-white.png" />
       </Head>
       <Header minScroll={0} />
       <main className={`${theme === 'dark' && 'bg-black text-white'}`}>
@@ -139,13 +146,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         'Content-Type': 'application/json',
       },
     })
-    let list = await res.json()
-    list.filter()
+    return await res.json()
   }
-  const character = await getCharacters()
+  const characters = await getCharacters()
   return {
     props: {
-      character,
+      characters,
     },
     revalidate: 60,
   }
