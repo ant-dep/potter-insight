@@ -21,9 +21,14 @@ export default function Home({ characters }: Props) {
   const theme = useSelector((state: State) => state.theme)
   const dispatch = useDispatch()
 
-  // push characters directly to redux for futher use
+  // add id to character from api dataset and dispatch to redux
   useEffect(() => {
-    dispatch(loadCharacters(characters))
+    let updatedCharacters = characters
+    updatedCharacters.map((character) => {
+      character.id = characters.indexOf(character)
+    })
+    console.log(updatedCharacters)
+    dispatch(loadCharacters(updatedCharacters))
   }, [characters])
 
   return (

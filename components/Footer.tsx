@@ -22,8 +22,8 @@ const Footer = () => {
 
   return (
     <>
-      <div className="font-normal text-[#757575] sm:flex sm:justify-between w-screen">
-        <ul className="grid grid-cols-2 justify-items-center gap-y-4 p-10 text-sm sm:flex sm:items-center sm:gap-x-4 ">
+      <div className="font-normal text-[#757575] flex justify-center">
+        <ul className="flex justify-between p-10 text-sm w-[80%]">
           <li className="cursor-pointer hover:underline">Help</li>
           <li className="cursor-pointer hover:underline">Status</li>
           <li className="cursor-pointer hover:underline">Writers</li>

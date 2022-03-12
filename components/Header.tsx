@@ -41,14 +41,14 @@ const Header = ({ minScroll }: Scroll) => {
       }`}
     >
       <nav
-        className={`mx-auto flex w-full max-w-7xl justify-between p-5 ${
+        className={`mx-auto flex w-full max-w-7xl justify-between p-3 ${
           theme === 'dark' && (minScroll == 0 || show) && 'text-white'
         }`}
       >
-        <div className="flex items-center space-x-10">
+        <div className="flex items-center space-0">
           <Link href="/">
             <img
-              className="w-44 cursor-pointer object-contain"
+              className="w-44 h-10 cursor-pointer object-contain"
               src={`${
                 theme === 'light'
                   ? '/logo.png'

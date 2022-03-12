@@ -17,6 +17,11 @@ const Banner = () => {
             Everything you need to know about Harry Potter and so much more!
           </h2>
         </div>
+        <img
+          className="hidden h-40 sm:inline-flex lg:h-60 xl:h-80"
+          src="/favicon.png"
+          alt=""
+        />
       </div>
     </div>
   )

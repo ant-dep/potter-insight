@@ -47,7 +47,7 @@ const persistConfig = {
   timeout: 100, // override the default 5sec timeout hit
   key: 'root',
   storage,
-  whitelist: ['theme', 'characters'], // place to select which state you want to persist
+  whitelist: ['theme'], // place to select which state you want to persist
 }
 
 const persistedReducer = persistReducer(persistConfig, reducer)
