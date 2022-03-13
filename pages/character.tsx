@@ -20,7 +20,8 @@ interface State {
 }
 
 const Character = ({ characters }: Props) => {
-  const theme = useSelector((state: State) => state.theme)
+  const [theme, setTheme] = useState('dark')
+  const reduxTheme = useSelector((state: State) => state.theme)
   const params = new URLSearchParams(window.location.search)
   const id = parseInt(params.get('id') || '0')
   const character = characters[id]
@@ -39,6 +40,12 @@ const Character = ({ characters }: Props) => {
     setIsLoading(false)
   }, [characters])
 
+  useEffect(() => {
+    {
+      reduxTheme && setTheme(reduxTheme)
+    }
+  }, [reduxTheme])
+
   return (
     <>
       <div>
@@ -48,21 +55,19 @@ const Character = ({ characters }: Props) => {
         <title>Potter Insight - {character && character?.name}</title>
         <link rel="icon" href="/favicon-white.png" />
       </Head>
-      <div className="flex-col justify-between ">
+      <div
+        className={`flex flex-col justify-between mx-auto h-screen ${
+          theme === 'dark' && 'bg-black text-white'
+        }`}
+      >
         <Header minScroll={0} />
-        <main
-          className={`flex justify-between items-center mx-auto mt-28 mb-10 ${
-            theme === 'dark' && 'bg-black text-white'
-          }`}
-        >
-          {isLoading ? (
-            <div className="flex justify-center items-center h-screen">
-              <Lottie options={defaultOptions} height={400} width={400} />
-            </div>
-          ) : (
-            <CharacterDetails character={character} />
-          )}
-        </main>
+        {isLoading ? (
+          <div className="flex justify-center items-center h-screen">
+            <Lottie options={defaultOptions} height={400} width={400} />
+          </div>
+        ) : (
+          <CharacterDetails character={character} />
+        )}
         <Footer />
       </div>
     </>

@@ -1,16 +1,24 @@
-import { FaMoon } from 'react-icons/fa'
-import { BiSun } from 'react-icons/bi'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { loadTheme } from '../store'
+import { FaMoon } from 'react-icons/fa'
+import { BiSun } from 'react-icons/bi'
 
 interface State {
   theme?: string
 }
 
 const Footer = () => {
-  const theme = useSelector((state: State) => state.theme)
-  console.log(theme)
+  const [theme, setTheme] = useState('dark')
+  const reduxTheme = useSelector((state: State) => state.theme)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    {
+      reduxTheme && setTheme(reduxTheme)
+    }
+    console.log('reduxTheme :', reduxTheme, 'theme: ', theme)
+  }, [reduxTheme])
 
   const toggleTheme = () => {
     if (theme === 'light') {
@@ -28,7 +36,6 @@ const Footer = () => {
           <li className="cursor-pointer hover:underline">Status</li>
           <li className="cursor-pointer hover:underline">Writers</li>
           <li className="cursor-pointer hover:underline">Blog</li>
-          <li className="cursor-pointer hover:underline">Careers</li>
           <li className="cursor-pointer hover:underline">Privacy</li>
           <li className="cursor-pointer hover:underline">Terms</li>
           <li className="cursor-pointer hover:underline">About</li>

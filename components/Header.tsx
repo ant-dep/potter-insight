@@ -12,7 +12,15 @@ interface Scroll {
 
 const Header = ({ minScroll }: Scroll) => {
   const [show, handleShow] = useState(false)
-  const theme = useSelector((state: State) => state.theme)
+  const [theme, setTheme] = useState('dark')
+  const reduxTheme = useSelector((state: State) => state.theme)
+
+  useEffect(() => {
+    {
+      reduxTheme && setTheme(reduxTheme)
+    }
+    console.log('reduxTheme :', reduxTheme, 'theme: ', theme)
+  }, [reduxTheme])
 
   // background color change on scroll
   useEffect(() => {
