@@ -5,3 +5,39 @@
 *::-webkit-scrollbar {
   display: none;
 }
+
+:root {
+  --color-primary: #740001;
+}
+
+.navigationButtons {
+  height: 20px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  padding-top: 40px;
+}
+
+.navigationButtons a {
+  padding: 5px 8px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.navigationButtons a:hover {
+  color: white;
+  background-color: var(--color-primary);
+}
+
+.navigationActive a {
+  color: white;
+  background-color: var(--color-primary);
+}
+
+.navigationDisabled a {
+  opacity: 0.5;
+}

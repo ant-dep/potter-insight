@@ -12,7 +12,15 @@ interface Scroll {
 
 const Header = ({ minScroll }: Scroll) => {
   const [show, handleShow] = useState(false)
-  const theme = useSelector((state: State) => state.theme)
+  const [theme, setTheme] = useState('dark')
+  const reduxTheme = useSelector((state: State) => state.theme)
+
+  useEffect(() => {
+    {
+      reduxTheme && setTheme(reduxTheme)
+    }
+    console.log('reduxTheme :', reduxTheme, 'theme: ', theme)
+  }, [reduxTheme])
 
   // background color change on scroll
   useEffect(() => {
@@ -28,7 +36,7 @@ const Header = ({ minScroll }: Scroll) => {
 
   return (
     <header
-      className={`fixed left-0 top-0 flex w-full border-b border-black ${
+      className={`fixed left-0 top-0 z-50 flex w-full border-b border-black ${
         minScroll === 0
           ? // slug page
             theme === 'light'
@@ -41,14 +49,14 @@ const Header = ({ minScroll }: Scroll) => {
       }`}
     >
       <nav
-        className={`mx-auto flex w-full max-w-7xl justify-between p-5 ${
+        className={`mx-auto flex w-full max-w-7xl justify-between p-3 ${
           theme === 'dark' && (minScroll == 0 || show) && 'text-white'
         }`}
       >
-        <div className="flex items-center space-x-5">
+        <div className="flex items-center space-0">
           <Link href="/">
             <img
-              className="w-44 cursor-pointer object-contain"
+              className="w-44 h-10 cursor-pointer object-contain"
               src={`${
                 theme === 'light'
                   ? '/logo.png'
@@ -59,18 +67,26 @@ const Header = ({ minScroll }: Scroll) => {
               alt=""
             />
           </Link>
-          <div className="hidden cursor-pointer items-center space-x-5 md:inline-flex">
-            <h3 className="transition duration-100 active:scale-90">About</h3>
-            <h3 className="transition duration-100 active:scale-90">Contact</h3>
-            <h3 className="transition duration-100 active:scale-90">Follow</h3>
+          <div className="hidden cursor-pointer items-center space-x-10 md:inline-flex">
+            <h3 className="transition duration-100 active:scale-90 cursor-pointer">
+              About
+            </h3>
+            <h3 className="transition duration-100 active:scale-90 cursor-pointer">
+              Contact
+            </h3>
+            <h3 className="transition duration-100 active:scale-90 cursor-pointer">
+              Follow
+            </h3>
           </div>
         </div>
 
-        <div className="hidden cursor-pointer items-center space-x-5 sm:flex">
-          <h3 className="transition duration-100 active:scale-90">Sign In</h3>
+        <div className="hidden cursor-pointer items-center space-x-10 sm:flex">
+          <h3 className="transition duration-100 active:scale-90 cursor-pointer">
+            Sign In
+          </h3>
           <h3
-            className={`rounded-full px-5 py-2 text-sm text-white transition duration-300 active:scale-90 ${
-              show ? 'bg-yellow-500' : 'bg-black'
+            className={`rounded-full px-5 py-2 text-sm text-white transition duration-300 active:scale-90 cursor-pointer ${
+              show ? 'bg-[#D3A625]' : 'bg-black'
             } ${minScroll == 0 && !show && 'border-white border'}`}
           >
             Get Started

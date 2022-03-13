@@ -3,6 +3,7 @@
  */
 
 export interface Characters {
+  id: number
   name: string
   alternate_names?: Array
   species?: string
