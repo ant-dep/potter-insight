@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { Characters } from '../typings'
+import { Characters } from '../types/typings'
 import { useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ReactPaginate from 'react-paginate'
+import Fade from 'react-reveal/Fade'
 import Lottie from 'react-lottie'
 import hermioneAnim from '../public/hermioneAnim.json'
 interface Props {
@@ -15,8 +16,7 @@ interface State {
 }
 
 const Character = ({ characters }: Props) => {
-  const [theme, setTheme] = useState('dark')
-  const reduxTheme = useSelector((state: State) => state.theme)
+  const theme = useSelector((state: State) => state.theme)
 
   // pagination setup
   const [page, setPage] = useState<number>(0)
@@ -33,25 +33,33 @@ const Character = ({ characters }: Props) => {
     .slice(numberOfPagesVistited, numberOfPagesVistited + elementsPerPage)
     .map((character) => {
       return (
-        <Link key={character?.id} href={`/show/?id=${character?.id}`}>
+        <Link
+          key={character?.id}
+          href={{
+            pathname: `/show`,
+            query: { id: character?.id },
+          }}
+        >
           <div
             className={`flex group cursor-pointer overflow-hidden rounded-lg border transition-transform duration-200 ease-in-out hover:scale-[1.01] ${
               theme === 'light' ? 'bg-white' : 'bg-black text-white'
             }`}
           >
-            {character.image !== '' && (
-              <img
-                className="object-cover max-w-[150px]"
-                src={character.image}
-                alt={character.name}
-              />
-            )}
-            <div className="flex flex-col justify-center  w-full p-10">
-              <p className="text-lg font-bold">{character.name}</p>
-              {character.house !== '' && (
-                <p className="text-xs">{character.house}</p>
+            <Fade bottom cascade>
+              {character.image !== '' && (
+                <img
+                  className="object-cover max-w-[150px]"
+                  src={character.image}
+                  alt={character.name}
+                />
               )}
-            </div>
+              <div className="flex flex-col justify-center  w-full p-10">
+                <p className="text-lg font-bold">{character.name}</p>
+                {character.house !== '' && (
+                  <p className="text-xs">{character.house}</p>
+                )}
+              </div>
+            </Fade>
           </div>
         </Link>
       )
@@ -66,12 +74,6 @@ const Character = ({ characters }: Props) => {
       preserveAspectRatio: 'xMidYMid slice',
     },
   }
-
-  useEffect(() => {
-    {
-      reduxTheme && setTheme(reduxTheme)
-    }
-  }, [reduxTheme])
 
   return (
     <>

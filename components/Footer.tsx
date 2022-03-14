@@ -1,24 +1,14 @@
-import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { loadTheme } from '../store'
 import { FaMoon } from 'react-icons/fa'
 import { BiSun } from 'react-icons/bi'
-
 interface State {
   theme?: string
 }
 
 const Footer = () => {
-  const [theme, setTheme] = useState('dark')
-  const reduxTheme = useSelector((state: State) => state.theme)
+  const theme = useSelector((state: State) => state.theme)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    {
-      reduxTheme && setTheme(reduxTheme)
-    }
-    console.log('reduxTheme :', reduxTheme, 'theme: ', theme)
-  }, [reduxTheme])
 
   // theme toggler from footer
   const toggleTheme = () => {
@@ -31,7 +21,7 @@ const Footer = () => {
 
   return (
     <div className="font-normal text-[#757575] flex justify-center">
-      <ul className="flex justify-between items-center p-10 text-sm w-[80%] flex-col sm:flex-row">
+      <ul className="flex justify-between items-center p-10 text-sm w-[80%] flex-col sm:flex-row max-w-[1200px] mx-auto">
         <li className="cursor-pointer hover:underline p-2">Help</li>
         <li className="cursor-pointer hover:underline p-2">Status</li>
         <li className="cursor-pointer hover:underline p-2">Writers</li>

@@ -1,12 +1,10 @@
-import { Characters } from '../typings'
-import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { loadCharacters } from '../store'
+import { Characters } from '../types/typings'
+import { useSelector } from 'react-redux'
 import Head from 'next/head'
 import Banner from '../components/Banner'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
-import Character from '../components/Character'
+import CharactersList from '../components/CharactersList'
 interface Props {
   characters: [Characters]
 }
@@ -16,20 +14,7 @@ interface State {
 }
 
 export default function Home({ characters }: Props) {
-  const [theme, setTheme] = useState('dark')
-  const reduxTheme = useSelector((state: State) => state.theme)
-  const dispatch = useDispatch()
-
-  // add id to character from api dataset and dispatch to redux
-  useEffect(() => {
-    dispatch(loadCharacters(characters))
-  }, [characters])
-
-  useEffect(() => {
-    {
-      reduxTheme && setTheme(reduxTheme)
-    }
-  }, [reduxTheme])
+  const theme = useSelector((state: State) => state.theme)
 
   return (
     <div className={`${theme === 'dark' && 'bg-black'}`}>
@@ -40,7 +25,7 @@ export default function Home({ characters }: Props) {
       <Header minScroll={100} />
       <Banner />
       <div className="mx-auto max-w-7xl">
-        <Character characters={characters} selected={0} />
+        <CharactersList characters={characters} selected={0} />
         <hr className="mx-auto mt-12 h-[0.5px] w-[95%] bg-[#757575]" />
         <Footer />
       </div>

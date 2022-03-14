@@ -11,14 +11,7 @@ interface Scroll {
 // terneray : minScroll == 0 refers to character page. show refers to scrolling event
 const Header = ({ minScroll }: Scroll) => {
   const [show, handleShow] = useState(false)
-  const [theme, setTheme] = useState('dark')
-  const reduxTheme = useSelector((state: State) => state.theme)
-
-  useEffect(() => {
-    {
-      reduxTheme && setTheme(reduxTheme)
-    }
-  }, [reduxTheme])
+  const theme = useSelector((state: State) => state.theme)
 
   // background color change on scroll on main page
   useEffect(() => {
