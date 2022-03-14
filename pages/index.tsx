@@ -7,11 +7,9 @@ import Banner from '../components/Banner'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Character from '../components/Character'
-
 interface Props {
   characters: [Characters]
 }
-
 interface State {
   theme: string
   page: string
@@ -24,12 +22,7 @@ export default function Home({ characters }: Props) {
 
   // add id to character from api dataset and dispatch to redux
   useEffect(() => {
-    let updatedCharacters = characters
-    updatedCharacters.map((character) => {
-      character.id = characters.indexOf(character)
-    })
-    console.log(updatedCharacters)
-    dispatch(loadCharacters(updatedCharacters))
+    dispatch(loadCharacters(characters))
   }, [characters])
 
   useEffect(() => {
@@ -47,7 +40,7 @@ export default function Home({ characters }: Props) {
       <Header minScroll={100} />
       <Banner />
       <div className="mx-auto max-w-7xl">
-        <Character charactersToLoad={characters} selected={0} />
+        <Character characters={characters} selected={0} />
         <hr className="mx-auto mt-12 h-[0.5px] w-[95%] bg-[#757575]" />
         <Footer />
       </div>
@@ -55,18 +48,21 @@ export default function Home({ characters }: Props) {
   )
 }
 
+// get characters from SSR
 export const getServerSideProps = async () => {
-  const getCharacters = async () => {
-    const res = await fetch('https://hp-api.herokuapp.com/api/characters', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    return res.json()
-  }
+  const res = await fetch('https://hp-api.herokuapp.com/api/characters', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  const data = await res.json()
 
-  const characters = await getCharacters()
+  // add id to character from api dataset for futher reference
+  const characters = data
+  characters.map((character: any) => {
+    character.id = characters.indexOf(character)
+  })
 
   return {
     props: {

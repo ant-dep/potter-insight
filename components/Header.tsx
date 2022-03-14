@@ -8,8 +8,7 @@ interface Scroll {
   minScroll: number
 }
 
-// terneray : minScroll == à refers to slug page. show refers to scrolling event
-
+// terneray : minScroll == 0 refers to character page. show refers to scrolling event
 const Header = ({ minScroll }: Scroll) => {
   const [show, handleShow] = useState(false)
   const [theme, setTheme] = useState('dark')
@@ -19,10 +18,9 @@ const Header = ({ minScroll }: Scroll) => {
     {
       reduxTheme && setTheme(reduxTheme)
     }
-    console.log('reduxTheme :', reduxTheme, 'theme: ', theme)
   }, [reduxTheme])
 
-  // background color change on scroll
+  // background color change on scroll on main page
   useEffect(() => {
     window.addEventListener('scroll', () => {
       if (window.scrollY > minScroll) {
@@ -64,7 +62,7 @@ const Header = ({ minScroll }: Scroll) => {
                   ? '/logo-white.png'
                   : '/logo.png'
               }`}
-              alt=""
+              alt="logo"
             />
           </Link>
           <div className="hidden cursor-pointer items-center space-x-10 md:inline-flex">
@@ -86,8 +84,8 @@ const Header = ({ minScroll }: Scroll) => {
           </h3>
           <h3
             className={`rounded-full px-5 py-2 text-sm text-white transition duration-300 active:scale-90 cursor-pointer ${
-              show ? 'bg-[#D3A625]' : 'bg-black'
-            } ${minScroll == 0 && !show && 'border-white border'}`}
+              show || minScroll == 0 ? 'bg-[#D3A625]' : 'bg-black'
+            }`}
           >
             Get Started
           </h3>

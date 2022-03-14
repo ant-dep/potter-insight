@@ -5,35 +5,35 @@ import { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import Lottie from 'react-lottie'
 import hermioneAnim from '../public/hermioneAnim.json'
-
 interface Props {
-  charactersToLoad: [Characters]
+  characters: [Characters]
   selected: number
 }
-
 interface State {
   theme: string
   characters: Array<Characters>
 }
 
-const Character = ({ charactersToLoad }: Props) => {
+const Character = ({ characters }: Props) => {
   const [theme, setTheme] = useState('dark')
   const reduxTheme = useSelector((state: State) => state.theme)
-  const [characters, setCharacters] = useState([] as Characters[])
-  const charactersFromRedux = useSelector((state: State) => state.characters)
+
+  // pagination setup
   const [page, setPage] = useState<number>(0)
   const elementsPerPage = 18
   const numberOfPagesVistited = page * elementsPerPage
   const totalPages = Math.ceil(characters.length / elementsPerPage)
+
   const changePage = ({ selected }: Props) => {
     setPage(selected)
   }
 
+  // function to display characters from slice of array
   const displayPage = characters
     .slice(numberOfPagesVistited, numberOfPagesVistited + elementsPerPage)
     .map((character) => {
       return (
-        <Link key={character?.id} href={`/character/?id=${character?.id}`}>
+        <Link key={character?.id} href={`/show/?id=${character?.id}`}>
           <div
             className={`flex group cursor-pointer overflow-hidden rounded-lg border transition-transform duration-200 ease-in-out hover:scale-[1.01] ${
               theme === 'light' ? 'bg-white' : 'bg-black text-white'
@@ -41,7 +41,7 @@ const Character = ({ charactersToLoad }: Props) => {
           >
             {character.image !== '' && (
               <img
-                className="h-60 object-contain"
+                className="object-cover max-w-[150px]"
                 src={character.image}
                 alt={character.name}
               />
@@ -57,6 +57,7 @@ const Character = ({ charactersToLoad }: Props) => {
       )
     })
 
+  // Loader animation options
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -67,14 +68,6 @@ const Character = ({ charactersToLoad }: Props) => {
   }
 
   useEffect(() => {
-    if (charactersToLoad.length > 0) {
-      setCharacters(charactersToLoad)
-    } else {
-      setCharacters(charactersFromRedux)
-    }
-  }, [charactersFromRedux, charactersToLoad])
-
-  useEffect(() => {
     {
       reduxTheme && setTheme(reduxTheme)
     }
@@ -82,7 +75,7 @@ const Character = ({ charactersToLoad }: Props) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-3 py-2 sm:grid-cols-2 md:gap-6 md:py-6 lg:grid-cols-3 px-1">
+      <div className="grid grid-cols-1 gap-3 py-2 pb-10 sm:grid-cols-2 md:gap-6 md:py-10 lg:grid-cols-3 px-3">
         {characters ? (
           displayPage
         ) : (
@@ -92,8 +85,8 @@ const Character = ({ charactersToLoad }: Props) => {
         )}
       </div>
       <ReactPaginate
-        previousLabel={'Previous'}
-        nextLabel={'Next'}
+        previousLabel={'<'}
+        nextLabel={'>'}
         pageCount={totalPages}
         onPageChange={changePage}
         containerClassName={'navigationButtons'}
@@ -101,6 +94,10 @@ const Character = ({ charactersToLoad }: Props) => {
         nextLinkClassName={'nextButton'}
         disabledClassName={'navigationDisabled'}
         activeClassName={'navigationActive'}
+        marginPagesDisplayed={
+          document.documentElement.clientWidth > 425 ? 2 : 0
+        } /* hide page numbers on smaller device */
+        pageRangeDisplayed={document.documentElement.clientWidth > 425 ? 2 : 0}
       />
     </>
   )

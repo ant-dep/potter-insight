@@ -20,6 +20,7 @@ const Footer = () => {
     console.log('reduxTheme :', reduxTheme, 'theme: ', theme)
   }, [reduxTheme])
 
+  // theme toggler from footer
   const toggleTheme = () => {
     if (theme === 'light') {
       dispatch(loadTheme('dark'))
@@ -29,28 +30,26 @@ const Footer = () => {
   }
 
   return (
-    <>
-      <div className="font-normal text-[#757575] flex justify-center">
-        <ul className="flex justify-between p-10 text-sm w-[80%]">
-          <li className="cursor-pointer hover:underline">Help</li>
-          <li className="cursor-pointer hover:underline">Status</li>
-          <li className="cursor-pointer hover:underline">Writers</li>
-          <li className="cursor-pointer hover:underline">Blog</li>
-          <li className="cursor-pointer hover:underline">Privacy</li>
-          <li className="cursor-pointer hover:underline">Terms</li>
-          <li className="cursor-pointer hover:underline">About</li>
-          <li className="cursor-pointer hover:underline">Knowable</li>
-          <li
-            className="cursor-pointer hover:underline"
-            onClick={() => {
-              toggleTheme()
-            }}
-          >
-            {theme === 'light' ? <FaMoon /> : <BiSun />}
-          </li>
-        </ul>
-      </div>
-    </>
+    <div className="font-normal text-[#757575] flex justify-center">
+      <ul className="flex justify-between items-center p-10 text-sm w-[80%] flex-col sm:flex-row">
+        <li className="cursor-pointer hover:underline p-2">Help</li>
+        <li className="cursor-pointer hover:underline p-2">Status</li>
+        <li className="cursor-pointer hover:underline p-2">Writers</li>
+        <li className="cursor-pointer hover:underline p-2">Blog</li>
+        <li className="cursor-pointer hover:underline p-2">Privacy</li>
+        <li className="cursor-pointer hover:underline p-2">Terms</li>
+        <li className="cursor-pointer hover:underline p-2">About</li>
+        <li className="cursor-pointer hover:underline p-2">Knowable</li>
+        <li
+          className="cursor-pointer hover:underline p-2"
+          onClick={() => {
+            toggleTheme()
+          }}
+        >
+          {theme === 'light' ? <FaMoon /> : <BiSun />}
+        </li>
+      </ul>
+    </div>
   )
 }
 
