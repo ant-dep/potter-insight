@@ -36,7 +36,7 @@ const Show = ({ character }: Props) => {
     <>
       <Head>
         <title>Potter Insight - {character && character?.name}</title>
-        <link rel="icon" href="/favicon-white.png" />
+        <link rel="icon" href="/favicon-white.ico" />
       </Head>
       <div
         className={`flex flex-col justify-between mx-auto min-h-screen ${
@@ -51,7 +51,7 @@ const Show = ({ character }: Props) => {
         ) : (
           <ShowDetails character={character} />
         )}
-        <hr className="mx-auto mt-12 h-[0.5px] w-[95%] bg-[#757575]" />
+        <hr className="mx-auto mt-12 h-[0.5px] w-[95%] bg-[#757575] max-w-7xl" />
         <Footer />
       </div>
     </>

@@ -6,10 +6,9 @@ interface Props {
 
 // Display conditionnaly the character details if specified
 const ShowDetails = ({ character }: Props) => {
-  console.log('CharacterDetails :', character)
   return (
     <main className="flex flex-grow justify-center items-center">
-      <div className="flex flex-col w-full justify-between items-start sm:flex-row max-w-[1024px] mx-auto">
+      <div className="flex flex-col w-full justify-between items-start sm:flex-row max-w-[1024px] mx-auto mt-28 md:mt-0 overflow-hidden">
         <Fade left>
           {character?.image !== '' && (
             <img

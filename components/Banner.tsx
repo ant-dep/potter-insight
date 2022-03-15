@@ -19,7 +19,7 @@ const Banner = () => {
         </div>
         <img
           className="hidden h-40 sm:inline-flex lg:h-60 xl:h-80"
-          src="/favicon.png"
+          src="/favicon.ico"
           alt=""
         />
       </div>

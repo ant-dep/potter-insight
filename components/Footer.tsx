@@ -21,7 +21,7 @@ const Footer = () => {
 
   return (
     <div className="font-normal text-[#757575] flex justify-center">
-      <ul className="flex justify-between items-center p-10 text-sm w-[80%] flex-col sm:flex-row max-w-[1200px] mx-auto">
+      <ul className="flex justify-between items-center p-10 text-sm w-[80%] flex-col sm:flex-row max-w-7xl mx-auto">
         <li className="cursor-pointer hover:underline p-2">Help</li>
         <li className="cursor-pointer hover:underline p-2">Status</li>
         <li className="cursor-pointer hover:underline p-2">Writers</li>

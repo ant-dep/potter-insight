@@ -5,6 +5,7 @@ import Banner from '../components/Banner'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import CharactersList from '../components/CharactersList'
+import { GetServerSideProps } from 'next'
 interface Props {
   characters: [Characters]
 }
@@ -17,14 +18,14 @@ export default function Home({ characters }: Props) {
   const theme = useSelector((state: State) => state.theme)
 
   return (
-    <div className={`${theme === 'dark' && 'bg-black'}`}>
+    <div className={`min-h-screen ${theme === 'dark' && 'bg-black'}`}>
       <Head>
         <title>Potter Insight</title>
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header minScroll={100} />
       <Banner />
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl flex flex-col justify-between">
         <CharactersList characters={characters} selected={0} />
         <hr className="mx-auto mt-12 h-[0.5px] w-[95%] bg-[#757575]" />
         <Footer />
@@ -34,7 +35,7 @@ export default function Home({ characters }: Props) {
 }
 
 // get characters from SSR
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await fetch('https://hp-api.herokuapp.com/api/characters', {
     method: 'GET',
     headers: {
@@ -45,7 +46,7 @@ export const getServerSideProps = async () => {
 
   // add id to character from api dataset for futher reference
   const characters = data
-  characters.map((character: any) => {
+  characters.map((character: Characters) => {
     character.id = characters.indexOf(character)
   })
 

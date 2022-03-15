@@ -31,7 +31,7 @@ const Character = ({ characters }: Props) => {
   // function to display characters from slice of array
   const displayPage = characters
     .slice(numberOfPagesVistited, numberOfPagesVistited + elementsPerPage)
-    .map((character) => {
+    .map((character: Characters) => {
       return (
         <Link
           key={character?.id}
@@ -40,24 +40,26 @@ const Character = ({ characters }: Props) => {
             query: { id: character?.id },
           }}
         >
-          <div
-            className={`flex group cursor-pointer overflow-hidden rounded-lg border transition-transform duration-200 ease-in-out hover:scale-[1.01] ${
-              theme === 'light' ? 'bg-white' : 'bg-black text-white'
-            }`}
-          >
+          <div className="flex group cursor-pointer overflow-hidden rounded-lg border transition-transform duration-200 ease-in-out hover:scale-[1.01]">
             <Fade bottom cascade>
-              {character.image !== '' && (
-                <img
-                  className="object-cover max-w-[150px]"
-                  src={character.image}
-                  alt={character.name}
-                />
-              )}
-              <div className="flex flex-col justify-center  w-full p-10">
-                <p className="text-lg font-bold">{character.name}</p>
-                {character.house !== '' && (
-                  <p className="text-xs">{character.house}</p>
+              <div
+                className={`flex group  ${
+                  theme === 'light' ? 'bg-white' : 'bg-black text-white'
+                }`}
+              >
+                {character?.image !== '' && (
+                  <img
+                    className="object-cover max-w-[150px]"
+                    src={character?.image}
+                    alt={character?.name}
+                  />
                 )}
+                <div className="flex flex-col justify-center  w-full p-10">
+                  <p className="text-lg font-bold">{character?.name}</p>
+                  {character?.house !== '' && (
+                    <p className="text-xs">{character?.house}</p>
+                  )}
+                </div>
               </div>
             </Fade>
           </div>
